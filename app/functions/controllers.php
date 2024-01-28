@@ -1,18 +1,15 @@
 <?php
 
-// para trabalhar com 'rotas' / usnado como base INC na url
-$inc = $_GET['inc'] ?? 'home';
-// ?inc='rota'
+require BASE.'/app/functions/cart.php';
+require BASE.'/app/functions/mail.php';
+require BASE.'/app/functions/redirect.php';
 
-// dessa forma retorna uma função, logo no controller executa como função
-return  match ($inc) {
-    'home' => function () {
-        var_dump('home');
-    },
-    'contact' => function () {
-        var_dump('contact');
-    },
-    default => function () {
-        var_dump('pagina inexistente');
-    },
-};
+$inc = $_REQUEST['inc'] ?? 'home';
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    return require BASE.'/app/controllers/get.php';
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    return require BASE.'/app/controllers/post.php';
+}
